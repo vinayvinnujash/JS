@@ -113,4 +113,83 @@ alert('Stay Alert!')
 
 
                 // Types of Function:
-                            //
+                            // That performs a task
+                            // That Calculates some value.
+
+
+
+// Operators
+        // Operators + Variables + Constants --> Expressions --> Algorithms
+
+        // Arithmetic Operators
+                // + - * / % ** ++ --
+
+        // Assignment operators
+                // += -= *= /= %= **= 
+
+        // Comparision Operators
+
+                // Relational Operators
+                        // > < >= <= 
+
+                // Equality Operators
+                        // === !==   Strict Equality Operator   ---- More Precise and Accurate
+                        // == !=     Lose Equality Operator
+
+                // Result of this operator is boolean
+
+        // Ternary Operator
+                // condition ? true_part : false_part
+
+        // Logical Operators   -- Short circuit operators.
+                // and   &&
+                // or    ||
+                // not    !
+                // The result of a logical expression is not necessarily true or false. It entirely depends on what operands we have
+
+                // Falsy (false) ---     
+                        // undefined
+                        // null
+                        // 0
+                        // false
+                        // ''
+                        // NaN   - Not a Number
+
+                // Truthy (true)  -- Anything that is not falsy
+
+        // Bitwise Operators
+                // Bitwise OR    |
+                // Bitwise AND   &
+
+        // Operator Precedence.
+                // You can always use () - Parenthesis to emphasize on the order of execution/priority
+
+// Control Flow
+        // If ... else   // Swithc case   // for loop // while loop
+        // do ... while loop 
+        // for... in  // for ... of    ----- Used to iterate over properties of an object or elements of an array
+/*
+if(condition){
+        statement
+}
+else if (anotherCondition) {
+        statement
+}
+else if (yetAnotherCondition){
+        statement
+}
+else
+        statement
+*/
+
+
+// Loops
+        // for
+        // while
+        // do while
+        // for in
+        // for of
+
+
+// break ----     exits from the loop
+// continue ----  skips the rest of the code and continues with next iteration  --- not recommended. -- an ugly way of writing code
