@@ -68,13 +68,13 @@ alert('Stay Alert!')
 
 // You have Primitive/Value types and Reference Types
 
-// Primitive Types:
+// Primitive(Value) Types:
         // String   ------ "string"
         // Number   --- all numbers are of type "number"
         // Booolean -----    "boolean"
         // undefined ------  "undefined"
         // null   ---------  "object"
-
+        // Symbol -----
         // In ES6 we have another primitive called SYMBOL
 
 
@@ -85,7 +85,7 @@ alert('Stay Alert!')
 // Cntrl + L  ------ clears the console.
 
 
-// Reference Types
+// Reference Types (Objects)
         // Objects
                 // {} -- Object literal
                 // Keys are properties
@@ -193,3 +193,49 @@ else
 
 // break ----     exits from the loop
 // continue ----  skips the rest of the code and continues with next iteration  --- not recommended. -- an ugly way of writing code
+
+
+
+
+//OBJECTS  ----highly related data(properties and functions) are put together.
+        // OOP - a style of programming where we see program as a collection of objects that talk to each other to perform some functionality.
+
+        // If a function is part of a object, in OOP terms we refer to that function as a method.
+
+
+// Factory function ---- produce objects.
+        // naming convention  ---- camel Notation     ---- sayLikeThis
+
+// Constructor function --- construct/create object
+        // naming convention --- pascal Notation   ----- SayLikeThis
+
+
+// Dynamic nature of objects
+        // you can always add/delete methods or properties of objects dynamically
+
+// Constructor property
+
+// Functions are objects.
+
+// Value vs Reference types.
+        // Primitive --- copied by value
+        // Reference --- copied by reference.
+
+// Enumerating properties of an object
+        // Object is not iterable and hence you cannot use for..of loop to iterate over objects.
+
+// Cloning an object
+
+// Garbage collection
+        // Garbage Collector --- deallocates memory of nolonger used variables or constant
+        // Memory allocation and deallocation happens automatically
+
+// Math object
+        // built in object for properties and methods for mathematical constants and functions
+
+
+// String object
+
+// Template literal
+
+// Date Object

@@ -558,3 +558,426 @@ do {
 
 }
 
+
+
+
+
+
+// Objects - object oriented programming
+// Object Literal syntax
+{
+    const circle = {   // Object literal syntax {}
+        radius: 1,
+        location: {
+            x: 1,
+            y: 1
+        },
+        isVisible = true,
+        draw: function () {
+            console.log('draw');
+        }
+    };
+
+    circle.draw(); // Method
+}
+
+
+// Factory function.
+{
+    function createCircle(radius) {
+        return {   // You don't want to store object as a const in a memory location.
+
+            radius,  // In modern javaScript if key and value are same, you can just simply add key. 
+
+            // radius : radius is same as radius
+
+            dra() {    // same as draw: function(){}
+                console.log('draw');
+            }
+        };
+    }
+
+    const circle1 = createCircle(1);
+    console.log(circle1)
+}
+
+
+
+// Constructor Function
+{
+    function Circle(radius) {
+        this.radius = radius; // this is a reference to an object that is executing this piece of code
+
+        this.draw = function () {
+            console.log('draw');
+        }
+    }
+
+    const circle = new Circle(1);
+
+    // Three things when you use a new operator.
+    // new operator creates empty javascript object --- const x = {}
+    // this points to the newly created empty object
+    // retruns the object.   --- return this;
+
+}
+
+
+// Dynamic nature of objects
+{
+    const circle = {   // const here esentially means that you cannot reassign the value.
+        radius: 1
+    };
+
+    // circle = {} ------ throws an error.   
+
+    circle.color = 'yellow';
+    circle.draw = function () { }
+
+    delete circle.color;
+    delete circle.draw;
+
+    console.log(circle);
+}
+
+
+// Constructor property
+{
+    let x = {}
+    // Internally, let x = new Object();
+    // Object is a built-in javascript function/constructor
+
+    //Other constructors
+    // new String();    ''  ""
+    // new Boolean();      true,false
+    // new Number();     1,2,3,4////
+
+    // Every object has a constructor property and that references to the function that was used to create that object.
+}
+
+
+// Functions are objects
+{
+    // func_name.name ---- name of the function
+    // func_name.length ---- number of arguments
+    // functions are created internally using f Functio() constructor
+    // func_name.constructor  --- function that created the function
+
+    const Circle1 = new Function('radius', `
+    this.radius = radius; 
+    this.draw = function () {
+        console.log('draw');
+    }`);   // Back tick char breaks code it into multiple lines
+
+    const circle = new Circle(1);
+
+    // If you don't use the new operator, this by default will point to global object window.
+
+    Circle.call({}, 1);  // Arguments are passed explicitly   Circle.call({}, 1,2,3)  --- 3 arguments
+    Circle.apply({}, [1, 2, 3]);   // arguments passed as array
+
+    const another = new Circle(1);   // same as above,
+
+    const another = Circle(1); // same as Circle.call(window,1);
+
+}
+
+
+
+// Value vs Reference types.
+{
+    let x = 10;
+    let y = x;
+
+    x = 20;   // x and y are two independent variables
+
+
+    x = { value: 10 };   // address or reference object is stored in x but not the object itself
+    y = x;   // x and y point to same objects
+    x.value = 20;
+
+
+    let number = 10;
+    function increase(number) {
+        number++;
+    }
+    increase(number);
+    console.log(number);
+
+    let obj = { value: 10 };
+    function increase(obj) {
+        obj.value++;
+    }
+    increase(obj);
+    console.log(obj);
+}
+
+
+// Enumerating properties of an object
+{
+    const circle = {
+        radius: 1,
+        draw() {
+            console.log('draw');
+        }
+    };
+
+    for (let key in circle)
+        console.log(key, circle[key]);
+
+    for (let key of circle)
+        console.log(key)   // throws error. Circle is not iterable.
+
+    // for...of loop only works on iterables like arrays and maps
+
+    // Object.keys(circle) returns all keys put in an string array which is a iterable
+
+    for (let key in Object.keys(circle))
+        console.log(key);
+
+    // Object.entries(circle) returns all key value pairs as an array
+
+
+    for (let entry in Object.entries(circle))
+        console.log(entry);
+
+    if ('radius' in circle) console.log('yes');  // in operator checks if a given property exists in an object.
+}
+
+
+
+// Cloning an object
+{
+    const circle = {
+        radius: 1,
+        draw() {
+            console.log('draw');
+        }
+    };
+
+    const another = {};
+
+    for (let key in circle)
+        another[key] = circle[key];
+
+    console.log(another);
+
+
+    const another1 = Object.assign({}, circle);  // Exactly same as above. However, the object need not be empty,
+
+    const another1 = Object.assign({ color: 'yellow' }, circle);  // contains both properties
+
+    const another = { ...circle };   // Spread operator is represented as '...' (3 dots) It essentially copies all the properties of existing object and clones them. Say copies.
+}
+
+
+// Math object
+{
+    // Math.PI
+    // Math.abs(x)
+    // Math.random()     -- random number in the range 0-1
+    // Math.round(1.9)
+    // Math.max(1,2,3,4,5)
+    // Math.min(1,2,3,4)
+}
+
+
+// String object
+{
+    // String primitive
+    const message = 'hi';   // of type " String"
+
+    // String object
+    const another = new String('   hi  ');
+
+    message.length   // --- number of chars
+    message.startsWith("hi");
+    message.includes("hi");
+    message.indexOf("i");
+    message.replace('hi', 'hello');
+    message.endsWith('i');
+    message.toUpperCase();
+    message.toLowerCase();
+    message.trim();
+    message.trimLeft();
+    message.trimRight();
+    message.split(' ');   // array of words
+}
+
+
+// Template literals
+{
+    // Object literal {}
+    // Boolean literal true,false
+    // String '' ""
+    // Template literal ``(back tick char)   ---- Starting from ES6
+
+    const another =
+        `Hi John,
+    
+    Thank you for joining my mailing list.
+    
+    Regards,
+    "Jane"`;
+
+    // With template literals, we can add placeholders in the strig
+    const name = 'Jane';
+
+    const another =
+        `Hi ${name},
+    
+    Thank you for joining my mailing list.
+    
+    Regards,
+    "Jane"`;
+
+    // We use ${} to add any expression that returns a value
+}
+
+
+// Date Object
+{
+    const now = new Date()   // Date() returns current date time
+    const newDate = new Date('Jan 24 1998 10:00');
+    const date1 = new Date(1998, 0, 24, 10, 00); // Month is 0 based
+
+    now.getDate;
+    now.setFullYear(2000);
+
+
+    console.log(now.toDateString())  // Thu May 11 2017
+    now.toTimeString()  /// 11:34:01 GMT-0700 (PDT)
+    now.toISOString()   // 2017-05-11T18:34:01.212Z  ----  standard ISO format commanly used in web applications to transfer date between client and server 
+
+
+}
+
+
+// Excercise 1 --- Address Object
+{
+    // function Address(street,) {
+    //     street,
+    //         city,
+    //         ZipCode,
+    //         this.showAddress(Address) = function () {
+
+    //         };
+    // }
+
+
+    let address = {
+        street: 'a',
+        city: 'b',
+        zipCode: 'c'
+    };
+
+    function showAddress(address) {
+        for (key in address)
+            console.log(key.address[key]);
+    }
+
+    showAddress(address);
+
+}
+
+
+
+// Excercise 2 ----   Factory and Constructor function
+{
+    // Factory function
+    {
+        let address = createAddress('a', 'b', 'c');
+        function createAddress(street, city, zipcode) {
+            return {
+                street,
+                city,
+                zipcode
+            };
+        }
+
+        function showAddress(address) {
+            for (key in address)
+                console.log(key, address[key]);
+        }
+    }
+
+    // Constructor function
+    {
+        function Address(street, city, zipCode) {
+            this.street = street,
+                this.city = city,
+                this.zipcode = zipCode
+        }
+
+        let address = new Address('a', 'b', 'c');
+    }
+}
+
+
+// Excercise 3 --- Object Equality
+{
+    function Address(street, city, zipCode) {
+        this.street = street,
+            this.city = city,
+            this.zipcode = zipCode
+    }
+
+    let address1 = new Address('a', 'b', 'c');
+    let address2 = new Address('a', 'b', 'c');
+
+    function areEqual(address1, address2) {
+        for (key in Object.keys(address1))
+            if (address1[key] != address2[key])
+                return 'Not Equal';
+        return 'Equal';
+    }
+
+    function areSame(address1, address2) {
+        return address1 === address2;
+    }
+
+}
+
+
+// Excercise 4 --- Blog Post Objects
+{
+    let blog_post = {
+        title: 'Wonders of women',
+        body: 'Attrocities of men and women',
+        author: 'john doe',
+        views: 539,
+        comments: [{
+            author: 'ash',
+            body: 'I hate you'
+        }],
+        isLive: false
+    }
+}
+
+// Excercise 5 ---- Constructor function
+{
+    function BlogPost(title, body, author) {
+        this.title = title,
+            this.body = body,
+            this.author = author,
+            views = 0,
+            comments = [],
+            isLive = false
+    }
+
+    let post = new BlogPost('a', 'b', 'c');
+}
+
+
+// Excercise 6 ----- Price Range Objects
+{
+    let priceRanges = [
+        { label: '$', tooltip: 'InExpensive', minPerPerson: 0, maxPerPerson: 10 },
+        { label: '$$', tooltip: 'Moderate', minPerPerson: 0, maxPerPerson: 10 },
+        { label: '$$$', tooltip: 'Expensive', minPerPerson: 0, maxPerPerson: 10 }
+    ];
+
+    let restaurants = [
+        { averagePerPerson: 5 }
+    ]
+}
