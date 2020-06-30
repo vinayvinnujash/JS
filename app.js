@@ -239,3 +239,42 @@ else
 // Template literal
 
 // Date Object
+
+
+// ARRAYS
+        // Adding elements   push upshift splice
+        // Finding Elements - Primitive and Reference types
+        // Arrow functions
+        // Removing Elements   pop shift splice
+        // Emptying an array  
+        // Combining and Slicing array
+                // When dealing with primitive types, the values are copied
+                // When dealing with objects, there references are copied
+        // The Spread Operator
+        // Iterating an array
+        // Joining arrays
+        // Sorting arrays
+        // Testing the elements of an array
+        // Filtering an array
+        // Mapping an array
+        // Reducing an array
+
+
+// FUNCTIONs
+        // Function declarations vs expressions
+        // Hosting
+        // Arguments
+        // Rest operator
+        // Default parameters
+        // Getters and Setters
+        // Try and Catch
+        // Local vs Global Scope
+        // Let vs Var
+                // 1st problem is with the scope
+                // 2nd issue is with global variables
+        // The This Keyword
+        // Changing this
+                // call apply bind
+                // 1st approach ---- using self...
+                // 2nd approach ---- using bind method
+                // 3rd approach ---- using arrow functions ---- modern way

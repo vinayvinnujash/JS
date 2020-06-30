@@ -981,3 +981,858 @@ do {
         { averagePerPerson: 5 }
     ]
 }
+
+
+// Adding elements to array.
+{
+    // Constant doesn't stop us from modifying an existing object, say a array
+
+    const numbers = [3, 4];  //  3 4
+    numbers = []; // Assignment to constant variable error.
+
+
+    // End 
+    numbers.push(5, 6);   // 3 4 5 6
+    console.log(numbers);
+
+    // Beginning
+    numbers.unshift(1, 2); // 1 2 3 4 5 6
+
+    // Middle
+    numbers.splice(2, 0, 'a', 'b'); // 1 2 a b 3 4 5 6
+
+}
+
+
+// Finding elements (Primitives)
+{
+    const numbers = [1, 2, 3, 4, 1];
+    numbers.indexOf('a'); // returns -1 as a doesn't exist
+    numbers.indexOf(1); // returns 0 as a doesn't exist
+    numbers.lastIndexOf(1); // returns 4 as a doesn't exist
+
+    console.log(numbers.indexOf(1) !== -1); // Element exists in array
+    console.log(number.includes(1));  // Outputs true
+
+    console.log(numbers.indexOf(1, 3)); //(search element, fromIndex)
+
+}
+
+
+// Finding elements (Reference types)
+{
+    const courses = [
+        { id: 1, name: 'a' },
+        { id: 2, name: 'b' },
+    ];
+
+    console.log(courses.includes({ id: 1, name: 'a' })); // Outputs false as there are two different refereces.
+
+    const course = courses.find(function (course) {
+        return course.name === 'a';
+    }); // we call this function a predicate or a call back function
+
+    console.log(course);  // We get the complete course object if exists otherwise is undefined.
+
+    const course = courses.findIndex(function (course) {
+        return course.name === 'a';
+    });  // returns 0 . If doesn't exist, returns -1
+}
+
+
+// Arrow functions -- whenever you wanna pass a function as a call back function or as an argument to a different method  
+{
+    // =>   fat arrow
+    // course =>    --- single parameter
+    // (course,other) =>  ----- two parameters(multiple)
+    // () => ---- no parameters
+    // 
+
+    const course = courses.find(course => course.name === 'a');
+    // This is read as course goes to course name equals a
+
+}
+
+// Removing elements
+{
+    const numbers = [1, 2, 3, 4];
+
+    // End
+    const last = numbers.pop()
+    console.log(numbers);   // 1 2 3
+    console.log(last); //4
+
+    // Beginning
+    const first = numbers.shift(); // 2 3 
+
+
+    // Middle
+    numbers.splice(2, 1);
+    numbers.splice(2, 3);  // deletes 2 elements starting from 2
+}
+
+
+
+// Emptying an array
+{
+    let numbers = [1, 2, 3, 4];
+    let another = numbers;
+
+    // Sol - 1
+    numbers = [];    // another still points to old array
+
+    // Sol - 2
+    numbers.length = 0; // This truncates the original array
+
+    // Sol - 3
+    numbers.slice(0, numbers.length);
+
+    // Sol - 4
+    while (numbers.length > 0)
+        numbers.pop()
+}
+
+
+
+// Combining and Slicing Array
+{
+    const first = [1, 2, 3];
+    const second = [4, 5, 6, 7];
+
+    const combined = first.concat(second);  // When dealing with objects their references are copied. Meaning to say, they are copied by reference.
+
+    const slice = combined.slice();  // returns copy of array
+    const slice = combined.slice(2, 4);   // returns array starting from 2 to 4. [2,4)
+    const slice = combined.slice(2);  // starting from 2 to end of array
+
+    console.log(slice);
+
+}
+
+
+// The Spread Operator
+{
+    // When you spread an array, all it's elements are returned individually
+
+    const first = [1, 2, 3];
+    const second = [4, 5, 6, 7];
+
+    const combined = [...first, 'a', ...second, 'b'];
+    // This is same as, [1,2,3,'a',4,5,6,7,'b']
+
+    const copy = [...combined];
+}
+
+
+// Iterating an array
+{
+    const numbers = [1, 2, 3];
+
+    for (let number in numbers)
+        console.log(number);
+
+    numbers.forEach((number, index /*optional*/) => console.log(index, number)); // same as function(number){console.log(number)}
+
+    // The forEach method takes a function as an argument
+
+}
+
+
+// Joining arrays
+{
+    const numbers = [1, 2, 3, 4];
+    const joined = numbers.join(','); // returns a combined string  '1,2,3,4'
+
+    console.log(joined);
+
+    const message = 'This is my first message';
+    const parts = message.split(' ');
+
+    console.log(parts); // ["This","is","my","first","message"]    // Title is split into words
+
+    const combined = parts.join('-');
+    console.log(combined); // This-is-my-first-message   // This is the url slug obtained by joining the above created array using hy-phen
+
+    // Mainly useful when creating urls, you split the title and join them again to create a url slug as above.
+}
+
+
+// Sorting arrays
+{
+    const numbers = [2, 3, 1];
+    numbers.sort();  // first converts each element to a string and then sorts the array
+    console.log(numbers);
+
+
+    numbers.reverse();
+    console.log(numbers);
+
+    // The above way of sorting is most useful when you have strings and numbers in the array.
+    // When you have objects, it doesn't work by default and needs some extra work
+
+    const courses = [
+        { id: 1, name: 'Node.js' },
+        { id: 2, name: 'JavaScript' },
+    ];
+
+    courses.sort(); // No effect
+
+    // Sort function optionally takes a function as a parameter to compare
+
+    courses.sort(function (a, b) {
+        // a < b => -1
+        // a > b => 1
+        // a === b => 0
+
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();   // This way you can ignore case...
+
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+    });
+
+    // Ctrl + d ----- multicursor editing for selected text
+}
+
+
+
+// Testing the elements of an array
+{
+    const numbers = [1, 2, 3];
+    const allPositive = numbers.every(function (value) { return value >= 0 });
+
+    console.log(allPositive); // Outputs true
+    // every()  ---- all elemnts should match the criteria.
+    // On encountering the first non-matching element, the search stops
+
+    const atLeastOnePositive = numbers.some(function (value) {
+        return value >= 0;
+    });
+
+    console.log(atLeastOnePositive); // true
+
+    // Some() checks to see if you have atleast one element fulfilling the condition
+
+    // Some() and every() are new and so, might not work in older browsers
+}
+
+
+// Filtering an array
+{
+    const numbers = [1, -2, 3, 4, 5];
+
+    const filtered = numbers.filter(function (value) {
+        return value >= 0;
+    });
+
+    // Same as numbers.filter(n=> n>=0);
+
+    console.log(filtered); // satisfying elements are added to a new array
+}
+
+
+// Mapping an array -- map each element of an array to something else
+{
+    const numbers = [1, 2, 3, 4];
+
+    const filtered = numbers.filter(n => n >= 0);
+
+    const items = filtered.map(n => '<li>' + n + '</li>');
+
+    const html = '<ul>' + items.join('') + '</ul>'; // By default join() uses ',' as separator
+
+    console.log(html);
+
+    const items = filtered.map(n => ({ value: n }));  // map can also used with objects  // returns an array of 4 objects
+
+    console.log(items);
+
+    // If there are no parenthesis, the parser sees {} as a codeblock instead of object literal
+
+    const items = filtered.map(n => { value: n });  // returns an array of three undefiend values
+
+    // Filter and Map return new array and are chainable
+
+    const items = numbers
+        .filter(n => n > 0)    // array containing values > 0
+        .map(n => ({ value: n })) // array of objects
+        .filter(obj => obj.value > 1) // array of objects with object value > 1
+        .map(obj => obj.value); // array containing values of each object
+
+    console.log(items);
+}
+
+
+
+// Reducing an array
+{
+    const numbers = [1, -1, 2, 3, 4];
+
+    let sum = 0;
+    for (let n of numbers)
+        sum += n;
+
+    console.log(sum);
+
+    sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0 /* Initializing accumulator with 0 */);
+
+    sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue);
+
+    // When initialization is not provided, accumulator will be assigned to the first value and currentValue will be set to second one.
+
+    // When initialization is provided, the currentValue will be assigned to first value
+
+    // reduce() converts all values into a single value which can be anything, a number/string
+}
+
+
+// Excercise 1 - Array from range
+{
+    const numbers = arrayFromRange(-10, -4);
+    console.log(numbers);
+    function arrayFromRange(min, max) {
+        const output = [];
+        for (i = min; i <= max; i++)
+            output.push(i);
+        return output;
+    }
+}
+
+
+//Excercise -2   Includes
+{
+    const numbers = [1, 2, 3, 4];
+
+    console.log(numbers.includes(1));
+
+    function includes(array, searchElement) {
+        for (let value of array)
+            if (value === searchElement)
+                return true;
+        return false;
+    }
+
+    console.log(includes(numbers, 2));
+}
+
+
+// Excercise -3 Except
+{
+    const numbers = [1, 2, 3, 4, 5, 1, 1, 1, 1];
+    const output = except(numbers, [1, 2]);
+
+    console.log(output);
+
+    function except(array, excluded) {
+        output = []
+        for (let element of array)
+            if (!excluded.includes(element))
+                output.push(element);
+        return output;
+    }
+}
+
+
+// Excercise -4 Moving an element
+{
+    const numbers = [1, 2, 3, 4];
+    const output = move(numbers, 0, 1);
+
+    console.log(output);
+
+    function move(array, index, offset) {
+        const output = [...array];
+        const position = index + offset;
+        if (position >= array.length || position < 0) {
+            console.error('Invalid offset');
+            return;
+        }
+
+        const element = output.splice(index, 1)[0];
+        output.splice(position, 0, element);
+        return output;
+
+        // if (index + offset >= array.length) {
+        //     console.log('Invalid offset')
+        //     return
+        // }
+
+        // let temp = outputArray[index + offset];
+        // outputArray[index + offset] = outputArray[index];
+        // outputArray[index] = temp;
+        // return outputArray;
+    }
+
+}
+
+
+// Excercise - 5 Counting Occurences
+{
+    const numbers = [1, 2, 3, 4, 5, 6, 1];
+
+    const count = countOccurrences(numbers, -1);
+    console.log(count);
+
+    function countOccurrences(array, searchElement) {
+        // let count = 0;
+        // for (let value of array)
+        //     if (value === searchElement)
+        //         count++;
+        // return count;         
+
+        return array.reduce((accumulator, current) => {
+            const occurrence = (current === searchElement) ? 1 : 0;
+            // console.log(accumulator,current,searchElement)
+            return occurrence + accumulator;
+        }, 0);
+    }
+
+}
+
+
+// Excercise - 6 Get Max
+{
+    const numbers = [1, 2, 3, 4];
+
+    const max = getMax([]);
+
+    console.log(max);
+
+    function getMax(array) {
+        if (array.length === 0)
+            return undefined;
+        let max = array[0];
+        for (let value of array)
+            if (value > max)
+                max = value;
+        return max;
+
+        // return array.reduce((accumulator, current) => { if (current > accumulator) accumulator = current; return accumulator; });
+
+        return array.reduce((a, b) => {
+            return (a > b) ? a : b;
+        });
+    }
+}
+
+
+// Excercise - 7 Movies
+{
+    const movies = [
+        { title: 'a', year: 2018, rating: 4.5 },
+        { title: 'b', year: 2018, rating: 4.7 },
+        { title: 'c', year: 2018, rating: 3 },
+        { title: 'd', year: 2017, rating: 4.5 },
+    ];
+
+    // All the movies in 2018 with rating > 4
+    // Sort them by their rating
+    // Descending order
+    // Pick their title
+
+    return movies
+        .filter(obj => obj.year === 2018 && obj.rating > 4)
+        .sort((a, b) => {
+            if (a.rating > b.rating) return 1;
+            if (a.rating < b.rating) return -1;
+            return 0;
+        }) /* .sort((a,b) => a-b) */
+        .reverse()
+        .map(obj => obj.title);
+}
+
+
+
+// FUNCTIONS
+
+// Function declarations vs expressions
+{
+    // Function Declaration
+    function walk() {
+        console.log('walk');
+    }// Even if you put a semi-colon here, it doesn't give any error. But by convention we don't put any.
+
+    // Anonymous Function Expression
+    let run = function () {
+        console.log('run');
+    };
+
+    // Named Function Expression
+    let run = function run() {
+        console.log('run');
+    };
+
+    run();
+
+    let move = run;
+    move();
+}
+
+
+// Hoisting -- process of moving function declarations to the top of the file and is done automatically by the JS Engine executing this code
+{
+    // Function Declaration
+    walk(); // No error. function can be called even before declaration
+
+    // the reason however is because javascript engine while executing moves all function declarations to the top. This is what we call HOISTING
+
+    function walk() { };
+
+
+    // Function Expression
+    run(); // Throws Uncaught ReferenceError: run is not defined
+    // Can not be used before declaration
+
+    const run = function () { };
+
+}
+
+
+// Arguments --- every function has a object called argument that has length property, an iterator, and others
+{
+    function sum(a, b) {
+        return a + b; // 1 + undefined => NaN
+    }
+    function sum1() {
+        console.arguments()
+        let total = 0;
+        for (let value of arguments) // for...of loop works with any operator that has an iterator. Here arguments operator has an iterator so we can use for...of loop instead of for..in loop
+            total += value;
+        return total;
+
+    }
+
+    console.log(sum(1));
+    console.log(sum1(1, 2, 3, 4, 5, 6, 6, 7));
+}
+
+
+// The Rest Operator -- modern javascript
+{
+    // Spread operator and Rest operator look same
+    // ... when used with parameter of a function is called rest operator
+    // Rest parameter must be the last formal parameter.
+
+    function sum(...args) {
+        return args.reduce((a, b) => a + b);
+    }
+    function sum(discount, ...args) {
+        const total = args.reduce((a, b) => a + b);
+        return (1 - discount);
+    }
+}
+
+
+// Default Parameters
+{
+    function interest(principle, rate = 3.5  /* Assigns default rate value, available starting from ES6 */, years) {
+        rate = rate || 3.5;
+        years = years || 5;    // Assigning default values.
+
+        // However starting from ES6, we can declare the default values as below
+
+        // function interest(principle,rate=3.5,years=5){}
+
+        return principle * rate / 100 * years;
+    }
+
+    console.log(interest(10000, 3.5, 5));
+
+
+    // It's always suggested to use, default parameters at the end.
+    // If there are parameters after default parameter, it doesn't produce any error but isn't considered as a best practice.
+}
+
+
+// Getters and Setters
+{
+    const person = {
+        firstName: 'John',
+        lastName: 'Doe',
+        fullName() {   // read only
+            console.log(`${person.firstName} ${person.lastName}`);
+        }
+    };
+
+    console.log(`${person.firstName} ${person.lastName}`);
+    console.log(person.fullName()); // Here you can't write, person.fullName;   i.e., you can't use person.fullName as a property except as a method
+
+    // This is where getters and setters come into picture
+    // getters => access properties
+    // Setters => change (mutate) them
+
+    const person1 = {
+        firstName: 'John',
+        lastName: 'Doe',
+        get fullName() {   // read only
+            console.log(`${person.firstName} ${person.lastName}`);
+        },
+        set fullName(value) {
+            const parts = value.split(' ');
+            this.firstName = parts[0];
+            this.lastName = parts[1];
+        }
+    };
+
+    person1.fullName = 'John Dane'
+    console.log(person1.fullName);
+}
+
+
+
+// Try and Catch   ----- What we call defensive programming
+{
+    // Difference between errors and exceptions
+
+    const e = new Error(); // plain javascript object
+    throw e; // The moment you throw an error, it becomes an exception. It is an exceptional situation that should not have happened.
+
+    // When an error is thrown, the control jumps out of that block and goes to the catch  block
+
+    const person1 = {
+        firstName: 'John',
+        lastName: 'Doe',
+        set fullName(value) {
+            if (typeof value !== 'string')
+                throw new Error('Value is not a string.');
+
+            const parts = value.split(' ');
+            if (parts.length !== 2)
+                throw new Error('Enter a first and last name');
+            this.firstName = parts[0];
+            this.lastName = parts[1];
+        }
+    };
+
+    try {
+        person1.fullName = 'John Dane'
+    }
+
+    catch (e/* This is the error object that we threw above */) {
+        alert(e);
+    }
+    console.log(person1.fullName);
+}
+
+
+// Local vs Global Scope
+{
+    //  When variables are declared using let/const their scope is limited to the block in which they are defined
+
+    const color = 'red'; // Has Global Scope
+
+    function start() {
+        const message = 'hi';  // Local to this function
+        const color = 'blue';
+        console.log(color); // Local variables have precedence over global variables
+    }
+
+
+}
+
+
+// Let vs Var
+{
+    // Scope of variables declared using var keyword is limited to the function in which it is defined.
+
+    // var --- only way before ES6
+    // ES6(ES2015)  ----  let , const 
+
+    function start() {
+        for (var i = 0; i < 5; i++)
+            console.log(i);
+        console.log(i); // Outputs 5.
+
+        for (let j = 0; j < 5; j++)
+            console.log(j);
+        console.log(j); // Throws an error.
+    }
+    // Here start() is a global function and is attatched to the window object
+
+    window.start();
+
+    var color = 'red';
+    window.color; // Outputs red
+    // when we use var outside of a function, it creates a global variable and attatches it to the window object in browser
+}
+
+
+// The This Keyword
+{
+    // This references to the object that is executing the current function
+
+    // method -> object (this refers to)
+    // function -> this refers to global object (window in browsers, global in node)
+
+    // When used with new operator, a case with the constructor function, this references the new empty object
+
+    const video = {
+        title: 'a',
+        play() {
+            console.log(this);
+        }
+    };
+
+    video.play(); // You get the video object on the console
+
+    // You can add methods or properties later. For instance you can write
+
+    video.stop = function () {
+        console.log(this); // You get the video object as output
+    };
+
+    video.stop();
+
+    function playVideo() {
+        console.log(this);
+    }
+
+    playVideo(); // you get the global window object as output
+
+    function Video(title) {
+        this.title = title;
+        console.log(this);
+    }
+
+    const v = new Video('b'); // {}
+
+
+    const video1 = {
+        title: 'a',
+        tags: ['a', 'b', 'c'],
+        showTags() {
+            this.tags.forEach(function (tag)/* this is a normal function attatched to the global window object*/ {
+                console.log(this.title, tag); // this here refers to the window object
+            });
+        },
+    };
+
+    const video2 = {
+        title: 'a',
+        tags: ['a', 'b', 'c'],
+        showTags() {
+            this.tags.forEach(function (tag) {
+                console.log(this.title, tag); // this here refers to the current object   ---- video2
+            }, this /* Optional parameter. this refers to the passed object or parameter. Not every method has this optional parameter*/);
+        },
+    };
+
+
+}
+
+
+// Changing this
+{
+    const video2 = {
+        title: 'a',
+        tags: ['a', 'b', 'c'],
+        showTags() {
+            const self = this; // Some write, const that = this;
+            this.tags.forEach(function (tag) {
+                console.log(self.title, tag); // Self is the original value of this
+            });
+        },
+    };
+
+    // The above approach is valid but is not preferred
+    // call apply bind
+
+    function playVideo(a, b) {
+        console.log(this);
+    }
+
+    playVideo.call({ name: 'John Doe' }, 1, 2); // The first argument is what this points to. With call you can pass the other parameters normally.
+
+    playVideo.apply({ name: 'John doe' }, [1, 2]); // Same as call. But with apply you need to pass the arguments as an array which is ofcourse the only difference between call and apply
+
+    const fn = playVideo.bind({ name: 'John Doe' }); // returns a function
+
+    fn();
+    // Alternatively you can call directly as below
+    playVideo.bind({ name: 'John Doe' })();
+    playVideo(); // window object
+
+
+    const video2 = {
+        title: 'a',
+        tags: ['a', 'b', 'c'],
+        showTags() {
+            this.tags.forEach(function (tag) {
+                console.log(this.title, tag);
+            }.bind(this)); // using bind is the second solution to the above problem of changing this
+        },
+    };
+
+    // However there is a newer and better solution, arrow functions
+    // arrow functions inherit the this value from the containing function
+
+    const video2 = {
+        title: 'a',
+        tags: ['a', 'b', 'c'],
+        showTags() {
+            this.tags.forEach(tag => {
+                console.log(this.title, tag);  // this references the video object
+            });
+        },
+    };
+}
+
+
+// Excercise - 1 Sum of Arguments
+{
+    // sum([1,2,3,4]) => 10
+
+    Array.isArray([]); // Outputs true
+    Array.isArray({}); // Outputs false
+    console.log(sum(1, 2, 3, 4));
+
+    function sum(...args) {
+        if (args.length === 1 && Array.isArray(args))
+            items = [...items[0]];
+        return args.reduce((a, b) => a + b);
+    }
+}
+
+
+// Excercise - 2 Area of circle
+{
+    let circle = {
+        radius: 5,
+        get area() {
+            return Math.PI * (this.radius ** 2);
+        },
+
+        get radius() {
+            return this.radius;
+        },
+
+        set radius(radius) {
+            this.radius = this.radius;
+        }
+    };
+
+    console.log(circle.area);
+}
+
+// Excercise - 3 Error Handling
+{
+    const numbers = [1, 2, 3, 4];
+    try {
+        const count = countOccurrences(null, 1);
+    }
+    catch (e) { // e is the identifier for our exception
+        console.log(e.message);
+    }
+    console.log(count);
+
+    function countOccurrences(array, searchElement) {
+        if (!Array.isArray(array))
+            throw new Error('Send a valid array');
+
+        return array.reduce((a, b) => {
+            const occurrence = (a === b) ? 1 : 0;
+            return a + occurrence;
+        }, 0);
+    }
+}
